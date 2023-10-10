@@ -14,6 +14,10 @@ public class CanvasManager : MonoBehaviour
         GenerateCards();
     }
 
+    private void OnMouseDown()
+    {
+        Debug.Log("CLICKEEEEEEEEEEEEEEEEEEEEED");
+    }
     void GenerateCards()
     {
         int cardCount = 8;
@@ -40,11 +44,9 @@ public class CanvasManager : MonoBehaviour
             CardController nameCardController = cardWithAnimalName.GetComponent<CardController>();
 
             // Assign the animal name to the CardController
-            nameCardController.cardSO = new CardsSO
-            {
-                AnimalName = selectedCardWithImage.AnimalName,
-                CardImage = null // Set the image to null or a default image for the second card
-            };
+            nameCardController.cardSO = ScriptableObject.CreateInstance<CardsSO>();
+            nameCardController.cardSO.AnimalName = selectedCardWithImage.AnimalName;
+            nameCardController.cardSO.CardImage = null; // Set the image to null or a default image for the second card
 
             cardControllers.Add(nameCardController);
         }
