@@ -399,10 +399,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 120
-    m_Right: 120
-    m_Top: 150
-    m_Bottom: 0
+    m_Left: 20
+    m_Right: 20
+    m_Top: 50
+    m_Bottom: 50
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -722,14 +722,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 179
+    m_Left: 254
     m_Right: 0
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 4
   rows: 4
   columns: 4
-  cellSize: {x: 330.5, y: 330.5}
+  cellSize: {x: 343, y: 343}
   spacing: {x: 10, y: 10}
   preferredPadding: 0
 --- !u!114 &1916288038
@@ -745,6 +745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 9075262065873826379, guid: 25713b22e911edf4584cc2c4e31e5cfb,
+    type: 3}
+  textcardPrefab: {fileID: 3448324830681131862, guid: ca861a4d64b35bb45b910e7775020a3e,
     type: 3}
   cardList: {fileID: 11400000, guid: 903db522b6bc4854fae1cc361b960897, type: 2}
 --- !u!1660057539 &9223372036854775807

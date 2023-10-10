@@ -1,26 +1,54 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-
     [SerializeField] GameObject cardPrefab;
+    [SerializeField] GameObject textcardPrefab;
     [SerializeField] CardsListSO cardList;
     List<CardController> cardControllers;
-    public void Awake()
+
+    void Awake()
     {
         cardControllers = new List<CardController>();
         GenerateCards();
     }
-    private void GenerateCards()
+
+    void GenerateCards()
     {
-        int cardCount = 16;
+        int cardCount = 8;
+        List<CardsSO> availableCards = new List<CardsSO>(cardList.Cards);
+
         for (int i = 0; i < cardCount; i++)
         {
-            GameObject card = Instantiate(cardPrefab, this.transform);
-            card.transform.name = $"Card ({i.ToString()})";
-            cardControllers.Add(card.GetComponent<CardController>());
+            // First Card: Display Image
+            GameObject cardWithImage = Instantiate(cardPrefab, transform);
+            cardWithImage.transform.name = $"Card ({i.ToString()})";
+            CardController imageCardController = cardWithImage.GetComponent<CardController>();
+
+            int randomIndex = Random.Range(0, availableCards.Count);
+            CardsSO selectedCardWithImage = availableCards[randomIndex];
+
+            imageCardController.cardSO = selectedCardWithImage;
+            availableCards.RemoveAt(randomIndex);
+
+            cardControllers.Add(imageCardController);
+
+            // Second Card: Display Animal Name
+            GameObject cardWithAnimalName = Instantiate(textcardPrefab, transform);
+            cardWithAnimalName.transform.name = $"Card ({i.ToString()})";
+            CardController nameCardController = cardWithAnimalName.GetComponent<CardController>();
+
+            // Assign the animal name to the CardController
+            nameCardController.cardSO = new CardsSO
+            {
+                AnimalName = selectedCardWithImage.AnimalName,
+                CardImage = null // Set the image to null or a default image for the second card if necessary
+            };
+
+            cardControllers.Add(nameCardController);
         }
     }
+
 }
+

@@ -15,7 +15,7 @@ public class CardGridLayout : LayoutGroup
         if (rows == 0 || columns == 0)
         {
             rows = 4;
-            columns = 5;
+            columns = 4;
         }
 
         float parentWidth = rectTransform.rect.width;
