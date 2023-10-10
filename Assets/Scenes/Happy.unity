@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 662477819}
   - component: {fileID: 662477818}
   - component: {fileID: 662477820}
+  - component: {fileID: 662477821}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -412,6 +413,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &662477821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662477816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855799d48127dfc44bdd7fbfc333fe41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689276502
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +676,7 @@ GameObject:
   - component: {fileID: 1916288036}
   - component: {fileID: 1916288037}
   - component: {fileID: 1916288038}
+  - component: {fileID: 1916288040}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -749,6 +763,14 @@ MonoBehaviour:
   textcardPrefab: {fileID: 3448324830681131862, guid: ca861a4d64b35bb45b910e7775020a3e,
     type: 3}
   cardList: {fileID: 11400000, guid: 903db522b6bc4854fae1cc361b960897, type: 2}
+--- !u!222 &1916288040
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916288034}
+  m_CullTransparentMesh: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

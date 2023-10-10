@@ -43,7 +43,7 @@ public class CanvasManager : MonoBehaviour
             nameCardController.cardSO = new CardsSO
             {
                 AnimalName = selectedCardWithImage.AnimalName,
-                CardImage = null // Set the image to null or a default image for the second card if necessary
+                CardImage = null // Set the image to null or a default image for the second card
             };
 
             cardControllers.Add(nameCardController);
