@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+
 [RequireComponent(typeof(AudioSource))]
 public class CanvasManager : MonoBehaviour
 {
@@ -87,8 +86,6 @@ public class CanvasManager : MonoBehaviour
 
     }
 
-    
-            
     IEnumerator RevealAllCards()
     {
         foreach (var card in cardControllers)
@@ -153,11 +150,6 @@ public class CanvasManager : MonoBehaviour
             GameManager.GameOver = true;
         }
     }
-
-
-
-
-
 
     private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
     {
