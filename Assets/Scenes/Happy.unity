@@ -276,10 +276,10 @@ RectTransform:
   - {fileID: 1916288035}
   m_Father: {fileID: 689276506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1502}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &662477818
 MonoBehaviour:
@@ -736,14 +736,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 254
+    m_Left: 465
     m_Right: 0
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 4
   rows: 4
   columns: 4
-  cellSize: {x: 343, y: 343}
+  cellSize: {x: 237.04953, y: 237.04953}
   spacing: {x: 10, y: 10}
   preferredPadding: 0
 --- !u!114 &1916288038
@@ -763,6 +763,8 @@ MonoBehaviour:
   textcardPrefab: {fileID: 3448324830681131862, guid: ca861a4d64b35bb45b910e7775020a3e,
     type: 3}
   cardList: {fileID: 11400000, guid: 903db522b6bc4854fae1cc361b960897, type: 2}
+  audioSource: {fileID: 0}
+  lostAudio: {fileID: 0}
 --- !u!222 &1916288040
 CanvasRenderer:
   m_ObjectHideFlags: 0

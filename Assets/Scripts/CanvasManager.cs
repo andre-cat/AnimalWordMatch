@@ -24,35 +24,62 @@ public class CanvasManager : MonoBehaviour
     void GenerateCards()
     {
         int cardCount = 8;
-        List<CardsSO> availableCards = new List<CardsSO>(cardList.Cards);
+        List<CardsSO> availableCards = new (cardList.Cards);
+        //availableCards = AnimalWordMatch.List.Shuffle(availableCards);
+
+        string animalsImages = "#";
+        string animalsTexts = "#";
 
         for (int i = 0; i < cardCount; i++)
         {
             // First Card: Display Image
             GameObject cardWithImage = Instantiate(cardPrefab, transform);
-            cardWithImage.transform.name = $"Card ({i.ToString()})";
+            cardWithImage.transform.name = $"Card ({i})";
             CardController imageCardController = cardWithImage.GetComponent<CardController>();
 
-            int randomIndex = Random.Range(0, availableCards.Count);
+            int randomIndex;
+
+            randomIndex = Random.Range(0, cardCount);
+
+            while (animalsImages.Contains($"#{randomIndex:D2}#"))
+            {
+                randomIndex = Random.Range(0, cardCount);
+            }
+
+            animalsImages += $"{randomIndex:D2}#";
+
             CardsSO selectedCardWithImage = availableCards[randomIndex];
 
             imageCardController.cardSO = selectedCardWithImage;
-            availableCards.RemoveAt(randomIndex);
+            //availableCards.RemoveAt(randomIndex);
 
             cardControllers.Add(imageCardController);
 
             // Second Card: Display Animal Name
             GameObject cardWithAnimalName = Instantiate(textcardPrefab, transform);
-            cardWithAnimalName.transform.name = $"Card ({i.ToString()})";
+            cardWithAnimalName.transform.name = $"Card ({i})";
             CardController nameCardController = cardWithAnimalName.GetComponent<CardController>();
+
+            randomIndex = Random.Range(0, cardCount);
+
+            while (animalsTexts.Contains($"#{randomIndex:D2}#"))
+            {
+                randomIndex = Random.Range(0, cardCount);
+            }
+
+            animalsTexts += $"{randomIndex:D2}#";
 
             // Assign the animal name to the CardController
             nameCardController.cardSO = ScriptableObject.CreateInstance<CardsSO>();
-            nameCardController.cardSO.AnimalName = selectedCardWithImage.AnimalName;
+            //nameCardController.cardSO.AnimalName = selectedCardWithImage.AnimalName;
+            nameCardController.cardSO.AnimalName = availableCards[randomIndex].AnimalName;
             nameCardController.cardSO.CardImage = null; // Set the image to null or a default image for the second card
 
             cardControllers.Add(nameCardController);
         }
+
+        //Debug.Log(animalsImages);
+        //Debug.Log(animalsTexts);
     }
 
     IEnumerator RevealAllCards()
