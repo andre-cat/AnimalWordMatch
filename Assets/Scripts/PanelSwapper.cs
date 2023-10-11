@@ -15,7 +15,6 @@ public class PanelSwapper : MonoBehaviour
     [SerializeField] private GameObject nextPanel;
     [SerializeField] private string nextPanelTrigger = "";
     [SerializeField] private AnimationClip nextPanelAnimation = null;
-    [SerializeField] private bool activated = false;
 
     private Button button;
 
@@ -30,8 +29,6 @@ public class PanelSwapper : MonoBehaviour
         panelAnimator = panel.GetComponent<Animator>();
 
         nextPanelAnimator = nextPanel.GetComponent<Animator>();
-
-        nextPanel.SetActive(activated);
     }
 
     private void Swap()
@@ -51,8 +48,6 @@ public class PanelSwapper : MonoBehaviour
             nextPanelAnimator.SetTrigger(nextPanelTrigger);
             yield return new WaitForSeconds(nextPanelAnimation.length);
         }
-
-        panel.SetActive(false);
     }
 
 }
