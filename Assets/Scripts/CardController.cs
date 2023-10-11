@@ -7,6 +7,8 @@ public class CardController : MonoBehaviour
 {
     
     public CardsSO cardSO;
+    private Button button;
+
     [SerializeField] private TMP_Text textField;
     [SerializeField] private Image bgImage;
     [SerializeField] private GameObject front;
@@ -20,7 +22,9 @@ public class CardController : MonoBehaviour
 
 
         AssignCardInfo();
-        
+        button = gameObject.GetComponent<Button>();
+        button.interactable = true;
+        button.onClick.AddListener(Click);
     }
 
    
@@ -44,12 +48,10 @@ public class CardController : MonoBehaviour
             textField.text = cardSO.AnimalName;
         }
     }
-    private void OnMouseDown()
+    void Click()
     {
-        Debug.Log("CLICKEEEEEEEEEEEEEEEEEEEEED");
-
-
+        Debug.Log(this.cardSO.AnimalName);
     }
-   
+
 }
 
