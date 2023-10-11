@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -67,5 +69,11 @@ public class GameManager : MonoBehaviour
     private void SetVoiceVolume()
     {
         voiceAudioSource.volume = musicAudioSource.volume * 200/100;
+    }
+
+    public void PlayAgain()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }
