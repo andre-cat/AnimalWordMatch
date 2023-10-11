@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
@@ -27,8 +28,8 @@ public class CanvasManager : MonoBehaviour
         List<CardsSO> availableCards = new (cardList.Cards);
         //availableCards = AnimalWordMatch.List.Shuffle(availableCards);
 
-        string animalsImages = "#";
-        string animalsTexts = "#";
+        List<int> animalsImages = new();
+        List<int> animalsTexts = new();
 
         for (int i = 0; i < cardCount; i++)
         {
@@ -41,12 +42,12 @@ public class CanvasManager : MonoBehaviour
 
             randomIndex = Random.Range(0, cardCount);
 
-            while (animalsImages.Contains($"#{randomIndex:D2}#"))
+            while (animalsImages.Contains(randomIndex))
             {
                 randomIndex = Random.Range(0, cardCount);
             }
 
-            animalsImages += $"{randomIndex:D2}#";
+            animalsImages.Append(randomIndex);
 
             CardsSO selectedCardWithImage = availableCards[randomIndex];
 
@@ -62,12 +63,12 @@ public class CanvasManager : MonoBehaviour
 
             randomIndex = Random.Range(0, cardCount);
 
-            while (animalsTexts.Contains($"#{randomIndex:D2}#"))
+            while (animalsTexts.Contains(randomIndex))
             {
                 randomIndex = Random.Range(0, cardCount);
             }
 
-            animalsTexts += $"{randomIndex:D2}#";
+            animalsTexts.Append(randomIndex);
 
             // Assign the animal name to the CardController
             nameCardController.cardSO = ScriptableObject.CreateInstance<CardsSO>();
@@ -110,13 +111,13 @@ public class CanvasManager : MonoBehaviour
             {
                 // Cards match
                 StartCoroutine(MatchFoundRoutine(firstCardClicked, clickedCard));
-                //audioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
+                audioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
             }
             else
             {
                 // Cards do not match, flip back the cards after a delay
                 StartCoroutine(FlipBackCards(firstCardClicked, clickedCard));
-                // audioSource.PlayOneShot(lostAudio);
+                 audioSource.PlayOneShot(lostAudio);
             }
 
             // Reset the first clicked card
