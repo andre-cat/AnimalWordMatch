@@ -7,6 +7,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] GameObject textcardPrefab;
     [SerializeField] CardsListSO cardList;
     List<CardController> cardControllers;
+    CardController firstCardClicked;
+
 
     void Awake()
     {
@@ -14,10 +16,7 @@ public class CanvasManager : MonoBehaviour
         GenerateCards();
     }
 
-    private void OnMouseDown()
-    {
-        Debug.Log("CLICKEEEEEEEEEEEEEEEEEEEEED");
-    }
+
     void GenerateCards()
     {
         int cardCount = 8;
@@ -52,5 +51,31 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+    public void CardClicked(CardController clickedCard)
+    {
+        if (firstCardClicked == null)
+        {
+            firstCardClicked = clickedCard;
+        }
+        else
+        {
+            // Check if the cards match
+            if (firstCardClicked.cardSO.AnimalName == clickedCard.cardSO.AnimalName)
+            {
+                // Cards match, perform your logic here
+                firstCardClicked.DestroyCard();
+                clickedCard.DestroyCard();
+                Debug.Log("Match found!");
+            }
+            else
+            {
+                // Cards do not match, perform your logic here (e.g., flip back the cards)
+                Debug.Log("No match, flip back the cards.");
+            }
+
+            // Reset the first clicked card
+            firstCardClicked = null;
+        }
+    }
 }
 

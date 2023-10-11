@@ -14,14 +14,19 @@ public class CardController : MonoBehaviour
     [SerializeField] private GameObject front;
     [SerializeField] private GameObject back;
 
+    CanvasManager canvasManager;
+
+
 
     //[SerializeField] private AudioSource audioSource;
 
     private void Start()
     {
 
+        canvasManager = FindObjectOfType<CanvasManager>();
 
         AssignCardInfo();
+
         button = gameObject.GetComponent<Button>();
         button.interactable = true;
         button.onClick.AddListener(Click);
@@ -50,7 +55,12 @@ public class CardController : MonoBehaviour
     }
     void Click()
     {
-        Debug.Log(this.cardSO.AnimalName);
+        canvasManager.CardClicked(this);
+    }
+
+    public void DestroyCard()
+    {
+        Destroy(gameObject);
     }
 
 }
