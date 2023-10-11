@@ -273,6 +273,7 @@ MonoBehaviour:
   bgImage: {fileID: 0}
   front: {fileID: 956675387384181110}
   back: {fileID: 7094529028010813961}
+  isHidden: 0
 --- !u!114 &-5039891882419022349
 MonoBehaviour:
   m_ObjectHideFlags: 0

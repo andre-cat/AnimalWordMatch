@@ -14,6 +14,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] AudioSource voiceAudioSource;
     [SerializeField] AudioClip[] failAudios;
     private int hiddenCardCount = 0;
+    [SerializeField] GameObject explosionFx;
 
 
     void OnEnable()
@@ -118,7 +119,10 @@ public class CanvasManager : MonoBehaviour
             {
                 // Cards match
                 voiceAudioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
+                explosionFx.SetActive(true);
+                Debug.Log("particulaaaaaaaaaaaaaaaaaaaaasssssssssssssss");
                 StartCoroutine(MatchFoundRoutine(firstCardClicked, clickedCard));
+
             }
             else
             {
@@ -154,17 +158,14 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-
-
-
-
-
     private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
     {
         yield return new WaitForSeconds(1f); // Adjust the delay time as needed
 
         card1.DestroyCard(); // Destroy the first card
         card2.DestroyCard(); // Destroy the second card
+        explosionFx.SetActive(false);/// set the particules off
+
     }
 
     private IEnumerator FlipBackCards(CardController card1, CardController card2)
