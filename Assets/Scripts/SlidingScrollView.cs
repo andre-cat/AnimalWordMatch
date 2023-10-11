@@ -13,10 +13,19 @@ public class SlidingScrollView : MonoBehaviour
 
     private Scrollbar scrollbar;
 
+    public Scrollbar Scrollbar
+    {
+        get => scrollbar;
+    }
+
+    public float InitialValue
+    {
+        get => initialValue;
+    }
+
     private void OnEnable()
     {
-        scrollbar = gameObject.GetComponent<Scrollbar>();
-        scrollbar.value = initialValue;
+        RestartCredits();
     }
 
     private void FixedUpdate()
@@ -29,5 +38,11 @@ public class SlidingScrollView : MonoBehaviour
         {
             scrollbar.value -= speed;
         }
+    }
+
+    private void RestartCredits()
+    {
+        scrollbar = gameObject.GetComponent<Scrollbar>();
+        scrollbar.value = initialValue;
     }
 }

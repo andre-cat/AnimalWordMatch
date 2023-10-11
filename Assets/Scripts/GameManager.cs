@@ -47,13 +47,13 @@ public class GameManager : MonoBehaviour
 
         if (gameOver)
         {
+            gameOver = false;
             gameOverEvent();
         }
     }
 
     private void StartComponents()
     {
-        gameOver = false;
 
         musicAudioSource = _musicAudioSource;
         musicAudioSource.playOnAwake = true;
@@ -68,12 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void SetVoiceVolume()
     {
-        voiceAudioSource.volume = musicAudioSource.volume * 200/100;
+        voiceAudioSource.volume = musicAudioSource.volume * 200 / 100;
     }
 
-    public void PlayAgain()
-    {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
-    }
 }
