@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -13,6 +12,7 @@ public class CanvasManager : MonoBehaviour
     CardController firstCardClicked;
     [SerializeField] AudioSource voiceAudioSource;
     [SerializeField] AudioClip[] failAudios;
+
 
     void OnEnable()
     {
@@ -79,8 +79,6 @@ public class CanvasManager : MonoBehaviour
             cardControllers.Add(nameCardController);
         }
 
-        Debug.Log(animalsImages);
-        Debug.Log(animalsTexts);
     }
 
     IEnumerator RevealAllCards()
@@ -100,6 +98,7 @@ public class CanvasManager : MonoBehaviour
 
     public void CardClicked(CardController clickedCard)
     {
+
         if (firstCardClicked == null)
         {
             firstCardClicked = clickedCard;
@@ -115,19 +114,23 @@ public class CanvasManager : MonoBehaviour
             }
             else
             {
+               
+                int ranInt = Random.Range(0, failAudios.Length);
                 // Cards do not match, flip back the cards after a delay
-                voiceAudioSource.PlayOneShot(failAudios[Random.Range(0, failAudios.Length)]);
+                voiceAudioSource.PlayOneShot(failAudios[ranInt]);
                 StartCoroutine(FlipBackCards(firstCardClicked, clickedCard));
             }
 
             // Reset the first clicked card
             firstCardClicked = null;
+
+           
         }
     }
 
     private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
     {
-        yield return new WaitForSeconds(3f); // Adjust the delay time as needed
+        yield return new WaitForSeconds(1f); // Adjust the delay time as needed
 
         card1.DestroyCard(); // Destroy the first card
         card2.DestroyCard(); // Destroy the second card
