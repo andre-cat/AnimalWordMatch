@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2bebf112abd6e4d886bb059aa6818a, type: 3}
+  m_Name: BirdSO
+  m_EditorClassIdentifier: 
+  animalName: Bird
+  cardImage: {fileID: 21300000, guid: 17fbd2e961d493a40bd5e355e0172724, type: 3}
+  cardAudio: {fileID: 8300000, guid: 22a565dfdc1c2d24dbe051f0ac1ffa1b, type: 3}
