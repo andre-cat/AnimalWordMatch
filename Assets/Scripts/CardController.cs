@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class CardController : MonoBehaviour
 {
-    
+
     public CardsSO cardSO;
     private Button button;
 
@@ -33,7 +33,7 @@ public class CardController : MonoBehaviour
         button.onClick.AddListener(Click);
     }
 
-   
+
 
     private void AssignCardInfo()
     {
@@ -71,6 +71,13 @@ public class CardController : MonoBehaviour
     }
     public void DestroyCard()
     {
+        int numberOfCards = GameObject.FindGameObjectsWithTag("Card").Length;
+
+        if (numberOfCards - 1 == 0)
+        {
+            GameManager.GameOver = true;
+        }
+
         Destroy(gameObject);
     }
 

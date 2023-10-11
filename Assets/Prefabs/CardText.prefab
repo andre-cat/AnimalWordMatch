@@ -293,6 +293,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardText
       objectReference: {fileID: 0}
+    - target: {fileID: 9075262065873826379, guid: 25713b22e911edf4584cc2c4e31e5cfb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Card
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
