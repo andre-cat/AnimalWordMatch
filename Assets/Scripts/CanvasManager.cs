@@ -16,6 +16,8 @@ public class CanvasManager : MonoBehaviour
     {
         cardControllers = new List<CardController>();
         GenerateCards();
+        StartCoroutine(RevealAllCards());
+
     }
 
 
@@ -53,6 +55,20 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+    IEnumerator RevealAllCards()
+    {
+        foreach (var card in cardControllers)
+        {
+            card.FlipCard(); // Flip the card to reveal the front
+        }
+
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+
+        foreach (var card in cardControllers)
+        {
+            card.FlipCard(); // Flip the card back to hide the front
+        }
+    }
 
     public void CardClicked(CardController clickedCard)
     {
