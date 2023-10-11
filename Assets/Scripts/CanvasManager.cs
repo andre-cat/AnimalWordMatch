@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] CardsListSO cardList;
     List<CardController> cardControllers;
     CardController firstCardClicked;
-
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip lostAudio;
 
     void Awake()
     {
@@ -51,6 +53,7 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+
     public void CardClicked(CardController clickedCard)
     {
         if (firstCardClicked == null)
@@ -62,20 +65,36 @@ public class CanvasManager : MonoBehaviour
             // Check if the cards match
             if (firstCardClicked.cardSO.AnimalName == clickedCard.cardSO.AnimalName)
             {
-                // Cards match, perform your logic here
-                firstCardClicked.DestroyCard();
-                clickedCard.DestroyCard();
-                Debug.Log("Match found!");
+                // Cards match
+                StartCoroutine(MatchFoundRoutine(firstCardClicked, clickedCard));
+                //audioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
             }
             else
             {
-                // Cards do not match, perform your logic here (e.g., flip back the cards)
-                Debug.Log("No match, flip back the cards.");
+                // Cards do not match, flip back the cards after a delay
+                StartCoroutine(FlipBackCards(firstCardClicked, clickedCard));
+                // audioSource.PlayOneShot(lostAudio);
             }
 
             // Reset the first clicked card
             firstCardClicked = null;
         }
+    }
+
+    private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust the delay time as needed
+
+        card1.DestroyCard(); // Destroy the first card
+        card2.DestroyCard(); // Destroy the second card
+    }
+
+    private IEnumerator FlipBackCards(CardController card1, CardController card2)
+    {
+        yield return new WaitForSeconds(1f); // Adjust the delay time as needed
+
+        card1.FlipCard(); // Flip back the first card
+        card2.FlipCard(); // Flip back the second card
     }
 }
 

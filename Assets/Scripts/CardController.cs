@@ -13,6 +13,7 @@ public class CardController : MonoBehaviour
     [SerializeField] private Image bgImage;
     [SerializeField] private GameObject front;
     [SerializeField] private GameObject back;
+    private bool isFlipped = false;
 
     CanvasManager canvasManager;
 
@@ -55,9 +56,19 @@ public class CardController : MonoBehaviour
     }
     void Click()
     {
-        canvasManager.CardClicked(this);
+        if (!isFlipped)
+        {
+            FlipCard();
+            canvasManager.CardClicked(this);
+        }
     }
 
+    public void FlipCard()
+    {
+        isFlipped = !isFlipped;
+        front.SetActive(isFlipped);
+        back.SetActive(!isFlipped);
+    }
     public void DestroyCard()
     {
         Destroy(gameObject);
