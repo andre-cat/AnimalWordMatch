@@ -69,6 +69,46 @@ public class CardController : MonoBehaviour
         front.SetActive(isFlipped);
         back.SetActive(!isFlipped);
     }
+    public void ChangeAlphaRecursively(GameObject obj, float alpha)
+    {
+        // Get the Image component of the GameObject
+        Image image = obj.GetComponent<Image>();
+
+        // Get the TextMeshPro component of the GameObject
+        TMPro.TextMeshProUGUI textMesh = obj.GetComponent<TMPro.TextMeshProUGUI>();
+
+        // Check if either Image or TextMeshPro component exists
+        if (image != null)
+        {
+            // Get the current color
+            Color currentColor = image.color;
+
+            // Set the alpha value
+            currentColor.a = alpha;
+
+            // Assign the modified color back to the Image component
+            image.color = currentColor;
+        }
+        else if (textMesh != null)
+        {
+            // Get the current color
+            Color currentColor = textMesh.color;
+
+            // Set the alpha value
+            currentColor.a = alpha;
+
+            // Assign the modified color back to the TextMeshPro component
+            textMesh.color = currentColor;
+        }
+
+        // Recursively process child objects
+        foreach (Transform child in obj.transform)
+        {
+            ChangeAlphaRecursively(child.gameObject, alpha);
+        }
+    }
+
+
     public void DestroyCard()
     {
         int numberOfCards = GameObject.FindGameObjectsWithTag("Card").Length;
@@ -78,8 +118,10 @@ public class CardController : MonoBehaviour
             GameManager.GameOver = true;
         }
 
-        Destroy(gameObject);
+        // Change alpha value of the current object and its children
+        ChangeAlphaRecursively(gameObject, 0f);
     }
+    
 
 }
 
