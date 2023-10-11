@@ -127,7 +127,7 @@ public class CanvasManager : MonoBehaviour
 
     private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
     {
-        yield return new WaitForSeconds(0.5f); // Adjust the delay time as needed
+        yield return new WaitForSeconds(3f); // Adjust the delay time as needed
 
         card1.DestroyCard(); // Destroy the first card
         card2.DestroyCard(); // Destroy the second card
