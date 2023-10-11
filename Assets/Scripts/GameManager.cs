@@ -5,12 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    //public delegate void MenuDelegate();
-    //public static MenuDelegate menuEvent;
-
-    //public delegate void CreditsDelegate();
-    //public static CreditsDelegate creditsEvent;
-
     private static readonly string VOLUME = "volume";
     private static AudioSource audioSource;
 

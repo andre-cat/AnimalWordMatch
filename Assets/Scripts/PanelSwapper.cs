@@ -13,7 +13,8 @@ public class PanelSwapper : MonoBehaviour
 
     [Header("NEXT PANEL")]
     [SerializeField] private GameObject nextPanel;
-    [SerializeField] private string nextPanelTrigger;
+    [SerializeField] private string nextPanelTrigger = "";
+    [SerializeField] private AnimationClip nextPanelAnimation = null;
     [SerializeField] private bool activated = false;
 
     private Button button;
@@ -40,12 +41,18 @@ public class PanelSwapper : MonoBehaviour
 
     private IEnumerator SwapCoroutine()
     {
+
         panelAnimator.SetTrigger(panelTrigger);
         yield return new WaitForSeconds(panelAnimation.length);
-        panel.SetActive(false);
 
         nextPanel.SetActive(true);
-        nextPanelAnimator.SetTrigger(nextPanelTrigger);
+        if (nextPanelTrigger != "")
+        {
+            nextPanelAnimator.SetTrigger(nextPanelTrigger);
+            yield return new WaitForSeconds(nextPanelAnimation.length);
+        }
+
+        panel.SetActive(false);
     }
 
 }
