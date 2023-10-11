@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetFloat(VOLUME, value);
             musicAudioSource.volume = PlayerPrefs.GetFloat(VOLUME, 0.1f);
-            voiceAudioSource.volume = PlayerPrefs.GetFloat(VOLUME, 0.1f) + 0.75f;
         }
     }
 
@@ -42,6 +41,8 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SetVoiceVolume();
+
         if (gameOver)
         {
             gameOverEvent();
@@ -61,5 +62,10 @@ public class GameManager : MonoBehaviour
         voiceAudioSource.playOnAwake = false;
         voiceAudioSource.volume = Volume;
         voiceAudioSource.loop = false;
+    }
+
+    private void SetVoiceVolume()
+    {
+        voiceAudioSource.volume = musicAudioSource.volume * 200/100;
     }
 }
