@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class CanvasManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CanvasManager : MonoBehaviour
     CardController firstCardClicked;
     [SerializeField] AudioSource voiceAudioSource;
     [SerializeField] AudioClip[] failAudios;
+    private int hiddenCardCount = 0;
 
 
     void OnEnable()
@@ -22,11 +24,15 @@ public class CanvasManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        FindHiddenCount();
+    }
+
     void GenerateCards()
     {
         int cardCount = 8;
         List<CardsSO> availableCards = new(cardList.Cards);
-        //availableCards = AnimalWordMatch.List.Shuffle(availableCards);
 
         string animalsImages = "#";
         string animalsTexts = "#";
@@ -81,6 +87,8 @@ public class CanvasManager : MonoBehaviour
 
     }
 
+    
+            
     IEnumerator RevealAllCards()
     {
         foreach (var card in cardControllers)
@@ -127,6 +135,29 @@ public class CanvasManager : MonoBehaviour
            
         }
     }
+
+    private void FindHiddenCount()
+    {
+        hiddenCardCount = 0; // Reset the hidden card count variable
+
+        foreach (var card in cardControllers)
+        {
+            if (card.isHidden)
+            {
+                hiddenCardCount++;
+            }
+        }
+
+        if (hiddenCardCount == 16)
+        {
+            GameManager.GameOver = true;
+        }
+    }
+
+
+
+
+
 
     private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
     {

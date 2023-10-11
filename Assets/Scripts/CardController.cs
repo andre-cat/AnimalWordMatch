@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -14,12 +12,9 @@ public class CardController : MonoBehaviour
     [SerializeField] private GameObject front;
     [SerializeField] private GameObject back;
     private bool isFlipped = false;
+    public bool isHidden = false;
 
-    CanvasManager canvasManager;
-
-
-
-    //[SerializeField] private AudioSource audioSource;
+    CanvasManager canvasManager;    
 
     private void Start()
     {
@@ -71,6 +66,7 @@ public class CardController : MonoBehaviour
     }
     public void ChangeAlphaRecursively(GameObject obj, float alpha)
     {
+
         // Get the Image component of the GameObject
         Image image = obj.GetComponent<Image>();
 
@@ -101,11 +97,16 @@ public class CardController : MonoBehaviour
             textMesh.color = currentColor;
         }
 
+       
+          
+
         // Recursively process child objects
         foreach (Transform child in obj.transform)
         {
             ChangeAlphaRecursively(child.gameObject, alpha);
         }
+
+        isHidden = true;
     }
 
 
