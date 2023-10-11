@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class CanvasManager : MonoBehaviour
 {
     [SerializeField] GameObject cardPrefab;
@@ -9,10 +11,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] CardsListSO cardList;
     List<CardController> cardControllers;
     CardController firstCardClicked;
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip lostAudio;
+    [SerializeField] AudioSource voiceAudioSource;
+    [SerializeField] AudioClip[] failAudios;
 
-    void Awake()
+    void OnEnable()
     {
         cardControllers = new List<CardController>();
         GenerateCards();
@@ -20,11 +22,10 @@ public class CanvasManager : MonoBehaviour
 
     }
 
-
     void GenerateCards()
     {
         int cardCount = 8;
-        List<CardsSO> availableCards = new (cardList.Cards);
+        List<CardsSO> availableCards = new(cardList.Cards);
         //availableCards = AnimalWordMatch.List.Shuffle(availableCards);
 
         string animalsImages = "#";
@@ -43,7 +44,7 @@ public class CanvasManager : MonoBehaviour
 
             while (animalsImages.Contains($"#{randomIndex:D2}#"))
             {
-                randomIndex = Random.Range(0, cardCount);
+                randomIndex = Random.Range(0, availableCards.Count);
             }
 
             animalsImages += $"{randomIndex:D2}#";
@@ -64,7 +65,7 @@ public class CanvasManager : MonoBehaviour
 
             while (animalsTexts.Contains($"#{randomIndex:D2}#"))
             {
-                randomIndex = Random.Range(0, cardCount);
+                randomIndex = Random.Range(0, availableCards.Count);
             }
 
             animalsTexts += $"{randomIndex:D2}#";
@@ -78,8 +79,8 @@ public class CanvasManager : MonoBehaviour
             cardControllers.Add(nameCardController);
         }
 
-        //Debug.Log(animalsImages);
-        //Debug.Log(animalsTexts);
+        Debug.Log(animalsImages);
+        Debug.Log(animalsTexts);
     }
 
     IEnumerator RevealAllCards()
@@ -109,14 +110,14 @@ public class CanvasManager : MonoBehaviour
             if (firstCardClicked.cardSO.AnimalName == clickedCard.cardSO.AnimalName)
             {
                 // Cards match
+                voiceAudioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
                 StartCoroutine(MatchFoundRoutine(firstCardClicked, clickedCard));
-                //audioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
             }
             else
             {
                 // Cards do not match, flip back the cards after a delay
+                voiceAudioSource.PlayOneShot(failAudios[Random.Range(0, failAudios.Length)]);
                 StartCoroutine(FlipBackCards(firstCardClicked, clickedCard));
-                // audioSource.PlayOneShot(lostAudio);
             }
 
             // Reset the first clicked card

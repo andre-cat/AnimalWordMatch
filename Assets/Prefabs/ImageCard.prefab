@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 9144731287637652315}
   m_Layer: 12
   m_Name: ImageCard
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

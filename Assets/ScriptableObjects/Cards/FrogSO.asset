@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalName: Frog
   cardImage: {fileID: 21300000, guid: a23734fbcc6cea6409e0401349a75d08, type: 3}
-  cardAudio: {fileID: 0}
+  cardAudio: {fileID: 8300000, guid: cc8cc86452022334d8c1cb255948091c, type: 3}
