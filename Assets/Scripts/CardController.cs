@@ -95,10 +95,7 @@ public class CardController : MonoBehaviour
 
             // Assign the modified color back to the TextMeshPro component
             textMesh.color = currentColor;
-        }
-
-       
-          
+        }  
 
         // Recursively process child objects
         foreach (Transform child in obj.transform)
