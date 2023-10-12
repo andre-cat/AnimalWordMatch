@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class CanvasManager : MonoBehaviour
 {
     [SerializeField] GameObject cardPrefab;
@@ -10,17 +9,17 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] CardsListSO cardList;
     List<CardController> cardControllers;
     CardController firstCardClicked;
-    [SerializeField] AudioSource voiceAudioSource;
     [SerializeField] AudioClip[] failAudios;
     private int hiddenCardCount = 0;
 
+    private AudioSource voiceAudioSource;
 
-    void OnEnable()
+    void Start()
     {
         cardControllers = new List<CardController>();
         GenerateCards();
         StartCoroutine(RevealAllCards());
-
+        voiceAudioSource = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -114,7 +113,12 @@ public class CanvasManager : MonoBehaviour
             if (firstCardClicked.cardSO.AnimalName == clickedCard.cardSO.AnimalName)
             {
                 // Cards match
+               if (firstCardClicked.cardSO.CardAudio != null){
+                voiceAudioSource.PlayOneShot(firstCardClicked.cardSO.CardAudio);
+               } else {
                 voiceAudioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
+               }
+
                 StartCoroutine(MatchFoundRoutine(firstCardClicked, clickedCard));
             }
             else
