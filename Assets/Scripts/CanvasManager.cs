@@ -92,7 +92,7 @@ public class CanvasManager : MonoBehaviour
             card.FlipCard(); // Flip the card to reveal the front
         }
 
-        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        yield return new WaitForSeconds(5f); // Wait for 2 seconds
 
         foreach (var card in cardControllers)
         {

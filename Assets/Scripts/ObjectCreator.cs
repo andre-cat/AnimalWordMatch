@@ -8,7 +8,7 @@ public class ObjectCreator : MonoBehaviour
     [SerializeField] new private GameObject gameObject;
     [SerializeField] private Transform parent;
 
-    private void CreateObject()
+    public void CreateObject()
     {
         Instantiate(gameObject, parent);
     }
