@@ -16,10 +16,10 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
+        voiceAudioSource = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AudioSource>();
         cardControllers = new List<CardController>();
         GenerateCards();
         StartCoroutine(RevealAllCards());
-        voiceAudioSource = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -82,7 +82,6 @@ public class CanvasManager : MonoBehaviour
 
             cardControllers.Add(nameCardController);
         }
-
     }
 
     IEnumerator RevealAllCards()
@@ -90,13 +89,15 @@ public class CanvasManager : MonoBehaviour
         foreach (var card in cardControllers)
         {
             card.FlipCard(); // Flip the card to reveal the front
+            yield return null;
         }
 
-        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        yield return new WaitForSeconds(4f); // Wait for 2 seconds
 
         foreach (var card in cardControllers)
         {
             card.FlipCard(); // Flip the card back to hide the front
+            yield return null;
         }
     }
 
@@ -113,28 +114,23 @@ public class CanvasManager : MonoBehaviour
             if (firstCardClicked.cardSO.AnimalName == clickedCard.cardSO.AnimalName)
             {
                 // Cards match
-               if (firstCardClicked.cardSO.CardAudio != null){
-                voiceAudioSource.PlayOneShot(firstCardClicked.cardSO.CardAudio);
-               } else {
-                voiceAudioSource.PlayOneShot(clickedCard.cardSO.CardAudio);
-               }
-
                 StartCoroutine(MatchFoundRoutine(firstCardClicked, clickedCard));
             }
             else
             {
-               
-                int ranInt = Random.Range(0, failAudios.Length);
                 // Cards do not match, flip back the cards after a delay
-                voiceAudioSource.PlayOneShot(failAudios[ranInt]);
                 StartCoroutine(FlipBackCards(firstCardClicked, clickedCard));
             }
 
             // Reset the first clicked card
             firstCardClicked = null;
-
-           
         }
+    }
+
+    private IEnumerator PlayVoice(AudioClip clip, float flipTime)
+    {
+        yield return new WaitForSeconds(flipTime);
+        voiceAudioSource.PlayOneShot(clip);
     }
 
     private void FindHiddenCount()
@@ -157,6 +153,15 @@ public class CanvasManager : MonoBehaviour
 
     private IEnumerator MatchFoundRoutine(CardController card1, CardController card2)
     {
+        if (card1.cardSO.CardAudio != null)
+        {
+            yield return StartCoroutine(PlayVoice(card1.cardSO.CardAudio, CardController.FlipTime));
+        }
+        else
+        {
+            yield return StartCoroutine(PlayVoice(card2.cardSO.CardAudio, CardController.FlipTime));
+        }
+
         yield return new WaitForSeconds(1f); // Adjust the delay time as needed
 
         card1.DestroyCard(); // Destroy the first card
@@ -165,7 +170,10 @@ public class CanvasManager : MonoBehaviour
 
     private IEnumerator FlipBackCards(CardController card1, CardController card2)
     {
-        yield return new WaitForSeconds(1f); // Adjust the delay time as needed
+        int ranInt = Random.Range(0, failAudios.Length);
+        yield return StartCoroutine(PlayVoice(failAudios[ranInt], CardController.FlipTime));
+
+        yield return new WaitForSeconds(0.5f); // Adjust the delay time as needed
 
         card1.FlipCard(); // Flip back the first card
         card2.FlipCard(); // Flip back the second card

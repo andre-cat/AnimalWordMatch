@@ -7,9 +7,16 @@ public class ObjectCreator : MonoBehaviour
 
     [SerializeField] new private GameObject gameObject;
     [SerializeField] private Transform parent;
+    [SerializeField] private float delay;
 
-    private void CreateObject()
+    public void CreateObject()
     {
+        StartCoroutine(CreateObjectCoroutine());
+    }
+
+    private IEnumerator CreateObjectCoroutine()
+    {
+        yield return new WaitForSeconds(delay);
         Instantiate(gameObject, parent);
     }
 }
