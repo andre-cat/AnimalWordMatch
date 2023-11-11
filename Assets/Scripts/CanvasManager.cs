@@ -162,8 +162,11 @@ public class CanvasManager : MonoBehaviour
             yield return StartCoroutine(PlayVoice(card2.cardSO.CardAudio, CardController.FlipTime));
         }
 
+        StartCoroutine(card1.PlayParticles());
+        StartCoroutine(card2.PlayParticles());
+        
         yield return new WaitForSeconds(1f); // Adjust the delay time as needed
-
+        
         card1.DestroyCard(); // Destroy the first card
         card2.DestroyCard(); // Destroy the second card
     }
