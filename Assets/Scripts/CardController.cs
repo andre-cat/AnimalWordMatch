@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 public class CardController : MonoBehaviour
 {
 
@@ -14,11 +15,14 @@ public class CardController : MonoBehaviour
     private bool isFlipped = false;
     public bool isHidden = false;
 
-    CanvasManager canvasManager;    
+    CanvasManager canvasManager;
+
+    private static float flipTime = 0.5f;
+
+    public static float FlipTime {get=> flipTime;}
 
     private void Start()
     {
-
         canvasManager = FindObjectOfType<CanvasManager>();
 
         AssignCardInfo();
@@ -49,6 +53,7 @@ public class CardController : MonoBehaviour
             textField.text = cardSO.AnimalName;
         }
     }
+
     void Click()
     {
         if (!isFlipped)
@@ -60,10 +65,53 @@ public class CardController : MonoBehaviour
 
     public void FlipCard()
     {
-        isFlipped = !isFlipped;
-        front.SetActive(isFlipped);
-        back.SetActive(!isFlipped);
+        StartCoroutine(FlipCardCoroutine(flipTime));
     }
+
+    private IEnumerator FlipCardCoroutine(float seconds)
+    {
+
+        isFlipped = !isFlipped;
+
+        int initialRotation;
+        int finalRotation;
+
+        if (isFlipped)
+        {
+            initialRotation = 0;
+            finalRotation = 180;
+        }
+        else
+        {
+            initialRotation = 180;
+            finalRotation = 0;
+        }
+
+        float secondsElapsed = 0;
+
+        bool wasFlipped = false;
+
+        while (secondsElapsed < seconds)
+        {
+            float t = secondsElapsed / seconds;
+            
+            transform.rotation = Quaternion.Lerp(Quaternion.Euler(new Vector3(0, initialRotation, 0)), Quaternion.Euler(new Vector3(0, finalRotation, 0)), Mathf.Clamp01(t));
+            
+            if (!wasFlipped & t > 0.49f)
+            {
+                wasFlipped = true;
+                front.SetActive(isFlipped);
+                back.SetActive(!isFlipped);
+            }
+            
+            secondsElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.Euler(new Vector3(0, finalRotation, 0));
+    }
+
     public void ChangeAlphaRecursively(GameObject obj, float alpha)
     {
 
@@ -95,7 +143,7 @@ public class CardController : MonoBehaviour
 
             // Assign the modified color back to the TextMeshPro component
             textMesh.color = currentColor;
-        }  
+        }
 
         // Recursively process child objects
         foreach (Transform child in obj.transform)
@@ -119,7 +167,7 @@ public class CardController : MonoBehaviour
         // Change alpha value of the current object and its children
         ChangeAlphaRecursively(gameObject, 0f);
     }
-    
+
 
 }
 
