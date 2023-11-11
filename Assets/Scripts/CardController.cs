@@ -12,6 +12,7 @@ public class CardController : MonoBehaviour
     [SerializeField] private Image bgImage;
     [SerializeField] private GameObject front;
     [SerializeField] private GameObject back;
+    [SerializeField] ParticleSystem stars;
     private bool isFlipped = false;
     public bool isHidden = false;
 
@@ -30,6 +31,8 @@ public class CardController : MonoBehaviour
         button = gameObject.GetComponent<Button>();
         button.interactable = true;
         button.onClick.AddListener(Click);
+
+        stars.gameObject.SetActive(false);
     }
 
 
@@ -168,6 +171,11 @@ public class CardController : MonoBehaviour
         ChangeAlphaRecursively(gameObject, 0f);
     }
 
-
+    public IEnumerator PlayParticles(){
+        stars.gameObject.SetActive(true);
+        stars.Play();
+        yield return new WaitForSeconds(1f);
+        stars.gameObject.SetActive(false);
+    }
 }
 
