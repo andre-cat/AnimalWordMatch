@@ -3,21 +3,18 @@ using UnityEngine;
 public class UIObserver : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject game;
 
     private void Start()
     {
         GameManager.gameOverEvent += ShowGameOver;
-        gameOverPanel.SetActive(false);
     }
 
     private void ShowGameOver()
     {
-        GameManager.GameOver = false;
-
         gameOverPanel.SetActive(true);
         gameOverPanel.GetComponent<Animator>().SetTrigger("right");
-        
-        gamePanel.SetActive(false);
+
+        Destroy(game.transform.GetChild(0).gameObject);
     }
 }
